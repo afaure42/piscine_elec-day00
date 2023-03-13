@@ -1,4 +1,7 @@
-
+DEVICE=atmega328p
+F_CPU = 1000000UL
+BAUDRATE=115200
+PROGRAMMER= -c arduino -P /dev/ttyUSB0 -b$(BAUDRATE) -p $(DEVICE)
 
 SRCS = main.c
 
@@ -8,21 +11,24 @@ HEXES = $(BINS:.bin=.hex)
 CC = avr-gcc
 
 
-F_CPU = 1000000UL
-CFLAGS = -D F_CPU=$(F_CPU)
+CFLAGS = -D F_CPU=$(F_CPU) -mmcu=$(DEVICE)
+
+all: flash
+
+
 
 $(BINS): $(SRCS)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $< -o $@
 
 $(HEXES): $(BINS)
 	avr-objcopy -O ihex $< $@
 
+
+
 hex: $(HEXES)
 
-
 flash: hex
-
-all: flash
+	avrdude $(PROGRAMMER) -U flash:w:$(HEXES):i
 
 clean:
 	rm -rf $(BINS) $(HEXES)
