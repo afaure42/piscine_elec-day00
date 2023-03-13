@@ -5,7 +5,7 @@ void wait(unsigned long ms)
 {
 
 	//i am dividing by 2 because it looks like the loop takes 2 cycles
-	for(unsigned long i = ((F_CPU / 1000) * ms) / 2;i; i--) {
+	for(unsigned long i = ((F_CPU / 1000) * ms) / 11;i; i--) {
 		__asm__("nop");
 	};
 }

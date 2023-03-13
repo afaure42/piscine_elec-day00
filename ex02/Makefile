@@ -1,5 +1,5 @@
 DEVICE=atmega328p
-F_CPU = 1000000UL
+F_CPU = 16000000UL
 BAUDRATE=115200
 PROGRAMMER= -c arduino -P /dev/ttyUSB0 -b$(BAUDRATE) -p $(DEVICE)
 
@@ -11,7 +11,7 @@ HEXES = $(BINS:.bin=.hex)
 CC = avr-gcc
 
 
-CFLAGS = -Wall -D F_CPU=$(F_CPU) -mmcu=$(DEVICE)
+CFLAGS = -Wall -D F_CPU=$(F_CPU) -mmcu=$(DEVICE) -Os
 
 all: flash
 
