@@ -1,11 +1,10 @@
 #include <avr/io.h>
 
 
-// #define CYCLES_FOR_500MS F_CPU / 2 / 6.5
 void wait(unsigned long ms)
 {
-	// unsigned long cycle_to_wait = F_CPU / 1000 * ms / 15;
 
+	//i am dividing by 2 because it looks like the loop takes 2 cycles
 	for(unsigned long i = ((F_CPU / 1000) * ms) / 2;i; i--) {
 		__asm__("nop");
 	};
@@ -26,8 +25,7 @@ int main() {
 		// }
 		wait(500);
 
-
+		//switching output bit of port PB0
 		PORTB ^= (1 << PB0);
-
 	}
 }
