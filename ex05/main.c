@@ -41,9 +41,10 @@ int main()
 		}
 
 		//assigning bit 1-2-3 to ports 0-1-2
+		//since ports 0-1-2 are contiguous it is possible directly assign those three values
 		PORTB = (counter & 0b00000111) << PB0;
 
-		//assigning bit 4 to port 4 becuase 3 isnt available
+		//assigning bit 4 to port 4 because 3 isnt available
 		PORTB |= ((counter & 1 << 3) >> 3 )<< PB4;
 	}
 }
